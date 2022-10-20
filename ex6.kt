@@ -1,4 +1,3 @@
-import java.lang.Exception
 import java.lang.IndexOutOfBoundsException
 
 class DoublyLinkedList<T: Comparable<T>>{
@@ -49,6 +48,29 @@ class DoublyLinkedList<T: Comparable<T>>{
         return false
     }
 
+    fun remove(value: Comparable<T>){
+        var obj = start
+        while (obj != null){
+            if (obj.value == value){
+                obj.prev?.next = obj.next
+                obj.next?.prev = obj.prev
+                break
+            }
+            obj = obj.next
+        }
+    }
+
+    fun indexOf(value: Comparable<T>): Int{
+        var obj = start
+        var i = 0;
+        while (obj != null){
+            if (obj.value == value) return i
+            obj = obj.next
+            i++
+        }
+        return -1
+    }
+
     fun convertToString(): String{
         var str = ""
         var obj = start
@@ -72,8 +94,13 @@ fun main() {
     list.set(2, 7)
     print("Список после изменения второго(по индексу) элемента: ")
     println(list.convertToString())
-
     val cont = list.contains(3)
     print("Проверка содержится ли элемент(3) в списке: ")
     println(cont)
+    list.remove(7)
+    print("Список после удаления 7 из списка: ")
+    println(list.convertToString())
+    val index = list.indexOf(6)
+    print("Индекс элемента(6) в списке: ")
+    println(index)
 }
